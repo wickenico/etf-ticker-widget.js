@@ -60,6 +60,7 @@ for(var index = 0; index < exchangeInfoRes.length; index++) {
 const countryFlagUrl = new Request("https://countryflagsapi.com/png/" + exchangeInfo.CountryISO2);
 const flagImg = await countryFlagUrl.loadImage()
 
+
 // Image fetching
 let img = {};
 let i = {};
@@ -85,6 +86,7 @@ function createWidget() {
     // Place image on the left top
     let imageStack = w.addStack();
     imageStack.setPadding(8, 25, 0, 10);
+    //imageStack.backgroundColor = Color.red()
     imageStack.layoutHorizontally();
     imageStack.centerAlignContent();
     let image = imageStack.addImage(img)
@@ -106,18 +108,22 @@ function createWidget() {
 
     let baseStack = imageTextStack.addStack()
     baseStack.layoutHorizontally();
+    baseStack.backogrundColor = Color.red()
     
     // ISIN text in the middle 
     let isinText = baseStack.addText(ISIN)
     isinText.textColor = Color.white()
     isinText.font = Font.systemFont(8)
     
+    let exchangeStack = imageTextStack.addStack()
+    exchangeStack.layoutHorizontally();
+    
     // Exchange text bottom
-    let exchangeText = imageTextStack.addText(exchange)
+    let exchangeText = exchangeStack.addText(exchange)
     exchangeText.textColor = Color.gray()
     exchangeText.font = Font.mediumSystemFont(12)
     
-    let flagImgInStack = imageTextStack.addImage(flagImg)
+    let flagImgInStack = exchangeStack.addImage(flagImg)
     flagImgInStack.imageSize = new Size(14, 14)
     flagImgInStack.centerAlignImage()
     
@@ -135,6 +141,7 @@ function createWidget() {
     let valueText = "";
     valueText = w.addText(previousClose + ' ' + currencyCode)
     valueText.centerAlignText()
+    valueText.textColor = Color.yellow()
     valueText.font = Font.systemFont(16)
 
     w.addSpacer(8)        
