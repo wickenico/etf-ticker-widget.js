@@ -45,6 +45,21 @@ exchange = res[0].Exchange;
 let previousCloseDate = "";
 previousCloseDate = res[0].previousCloseDate
 
+const exchangeInfoUrl = 'https://api.leeway.tech/api/v1/public/general/exchanges?apitoken=p822b4zix92kereexub6iz'
+const exchangeInfoReq = new Request(exchangeInfoUrl)
+const exchangeInfoRes = await exchangeInfoReq.loadJSON()
+
+let exchangeInfo = ""
+
+for(var index = 0; index < exchangeInfoRes.length; index++) {
+  if(exchangeInfoRes[index].Code == exchange) {
+    exchangeInfo = exchangeInfoRes[index]
+  }
+}
+
+const countryFlagUrl = new Request("https://countryflagsapi.com/png/" + exchangeInfo.CountryISO2);
+const flagImg = await countryFlagUrl.loadImage()
+
 // Image fetching
 let img = {};
 let i = {};
@@ -73,7 +88,7 @@ function createWidget() {
     imageStack.layoutHorizontally();
     imageStack.centerAlignContent();
     let image = imageStack.addImage(img)
-    image.imageSize = new Size(45, 45)
+    image.imageSize = new Size(43, 43)
     image.centerAlignImage()
     imageStack.addSpacer(12);
 
@@ -101,6 +116,10 @@ function createWidget() {
     let exchangeText = imageTextStack.addText(exchange)
     exchangeText.textColor = Color.gray()
     exchangeText.font = Font.mediumSystemFont(12)
+    
+    let flagImgInStack = imageTextStack.addImage(flagImg)
+    flagImgInStack.imageSize = new Size(14, 14)
+    flagImgInStack.centerAlignImage()
     
     w.addSpacer(8)    
     
