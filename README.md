@@ -1,5 +1,5 @@
 # etf-ticker-widget.js
-A Scriptable widget that shows the yesterday's etf cours based on leeway API.
+A Scriptable widget that shows the yesterday's etf course based on leeway API.
 
 ## Prerequisites
 - To use this Widget you need an API key from Leeway.
